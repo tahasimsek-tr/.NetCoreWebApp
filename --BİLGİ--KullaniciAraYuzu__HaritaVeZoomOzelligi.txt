@@ -1,0 +1,51 @@
+ETKİNLİK PROJESİ .NET CORE
+Harita üzerinde etkinlik konumu gösterilecek, zoom özelliği olacak.
+
+
+1--İlk olarak, Leaflet harita kütüphanesini projenize eklemek için terminal veya komut istemcisine şu komutu yazın:
+
+BASH
+npm install leaflet
+
+---------------------------------------
+
+2--Ardından, Views/Home/Index.cshtml dosyasını düzenleyerek aşağıdaki kodu ekleyin:
+
+@{
+    ViewData["Title"] = "Event Location";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div id="map" style="height: 400px;"></div>
+
+<!-- Leaflet CSS dosyasını ekleyin -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" integrity="sha384-MrcWRIb8qXqnV4ZRDC5RQ7SNtkUOpDY0M2a6StQlFfN5QH8kM5+8a5t55JW5lFdi" crossorigin="anonymous">
+
+<!-- Leaflet JavaScript dosyasını ekleyin -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js" integrity="sha384-JUqBe8VjFH7CkpL3+R8U2fDfViZ3qOWpR97dt1QjcYgQ3eImQ+Wh1A6g/jxIbYdL" crossorigin="anonymous"></script>
+
+<script>
+    // Etkinlik konumu koordinatları
+    var eventLocation = [41.0082, 28.9784]; // İstanbul koordinatları
+
+    // Harita oluştur
+    var map = L.map('map').setView(eventLocation, 13);
+
+    // Harita üzerine OpenStreetMap katmanını ekleyin
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Harita üzerine bir işaretçi ekleyin
+    L.marker(eventLocation).addTo(map)
+        .bindPopup('Etkinlik Konumu')
+        .openPopup();
+</script>
+
+
+Bu örnek, Leaflet harita kütüphanesini kullanarak etkinlik konumunu gösterir. 'Views/Home/Index.cshtml' dosyasının içine eklenen HTML ve JavaScript kodları ile harita oluşturulur ve etkinlik konumu işaretlenir. Harita üzerindeki 'setView' fonksiyonu ile başlangıçta gösterilecek olan konumu ve 'L.tileLayer' fonksiyonu ile haritanın altında kullanılacak olan harita katmanı belirlenir.
+
+Unutmayın ki bu sadece basit bir örnektir. Projeye bağlı olarak, etkinlik konumunu dinamik olarak belirlemeniz ve kullanıcı tarafından değiştirilebilir olmasını sağlamanız gerekebilir. Bu durumda, daha karmaşık bir yapı ve back-end işlemleri gerekebilir.
+
+
